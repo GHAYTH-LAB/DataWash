@@ -34,13 +34,22 @@ IQR=Q3-Q1
 lower_band=Q1-1.5*IQR
 Higher_band=Q3+1.5*IQR
 df=df[(df["sellprice"]>=lower_band) &(df["sellprice"]<=Higher_band)]
-df["'details"]=(df["details"]
+df["details"]=(df["details"]
                 .str.replace("-","")
-                .str.strip())
+                .str.strip()
+                )
 df["sizes"] = (df["sizes"]
                .str.split(":", n=1).str[1]
                .str.replace("_","")
                .str.replace(",","")
             )
-df["mrp"]=df["mrp"].str.split(" ",n=1).str[1]
-print(df["mrp"])
+df["mrp"]=df["mrp"].str.split("\n",n=1).str[1]
+df["mrp"]=df["mrp"].astype(int)
+df=df.rename(columns={"discount":"discount%"})
+df["discount%"]=df["discount%"].str.split("%",n=1).str[0]
+print(df["discount%"])
+df=df.rename(columns={"category":"category women"})
+df["category women"]=df["category women"].str.split("-",n=1).str[0]
+print(df["category women"])
+df["sellprice"]=df["sellprice"].astype(int)
+df.to_csv("fasion dataset cleaned.csv",index=False)
