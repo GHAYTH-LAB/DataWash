@@ -54,5 +54,4 @@ df["listed in"]=(df["listed in"]
                  .str.replace(".","")
                  .str.lower()
 )
-
 df.to_csv("Cleaned netflix dataset.csv",index=False)
