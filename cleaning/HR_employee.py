@@ -37,7 +37,7 @@ df=df.drop(columns="employeecount")
 df["jobrole"]=(df["jobrole"]
                .str.strip()
                .str.lower())
-df["marialstatus"]=(df["maritalstatus"]
+df["maritalstatus"]=(df["maritalstatus"]
                     .str.strip()
                     .str.lower())
 Q1=df["monthlyincome"].quantile(0.25)
