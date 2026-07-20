@@ -1,18 +1,12 @@
 import pandas as pd
 import numpy as np
 df=pd.read_csv(r"C:\Users\abidli\Desktop\cleaning datasets\datasets\raw\HR-Employee-Attrition.csv")
-print(df.head())
-print(df.tail())
-print("----------------")
 df.columns=(df.columns
             .str.strip()
             .str.lower()
             )
-print(df.columns)
-print(df.info())
 df["attrition"]=df["attrition"].apply(lambda x:True if x==1 else False)
 df["attrition"]=df["attrition"].astype(int)
-print(df.info())
 df["businesstravel"]=(df["businesstravel"]
                       .str.replace("-","_")
                       )
@@ -24,13 +18,11 @@ Q3=df["dailyrate"].quantile(0.75)
 IQR=Q3-Q1
 Lower_band=Q1-1.5*IQR
 Higher_band=Q3+1.5*IQR
-print(df.shape)
 df=df[(df["dailyrate"]>=Lower_band) & (df["dailyrate"]<=Higher_band)]
 df["department"]=df["department"].str.lower()
 df["educationfield"]=(df["educationfield"]
                        .str.lower()
                        .str.strip())
-print((df["educationfield"].str.lower()=="other").sum())
 df["educationfield"]=df["educationfield"].replace("other",np.nan)
 df=df.dropna(subset="educationfield")
 df=df.drop(columns="employeecount")
