@@ -23,7 +23,6 @@ df=df.fillna({
 })
 df["product minimum offer price"]=df["product minimum offer price"].str.split("$",n=1).str[1]
 df["product minimum offer price"]=df["product minimum offer price"].astype(float)
-print(df.info())
 df["is best seller"]=df["is best seller"].apply(lambda x:1 if x==True else 0)
 df["is best seller"]=df["is best seller"].astype(int)
 df["is amazon choice"]=df["is amazon choice"].apply(lambda x:1 if x==True else 0)
@@ -41,7 +40,6 @@ df[["number", "unit"]] = df["sales volume"].str.extract(r"(\d+)(K)?")
 df["sales volume in k"] = df["number"].astype(int)
 df.loc[df["unit"] == "K", "sales volume in k"] *= 1000
 df = df.drop(columns=["number", "unit","sales volume"])
-print(df["sales volume in k"])
 df["delivery"]=df["delivery"].str.lower()
 df["delivery type"] ="normal"
 df.loc[(df["delivery"].str.contains(("available instantly"),na=False)),"delivery type"]="instant"
