@@ -19,6 +19,9 @@ df["critical/other existing credit"]=df["credit history"]=="critical/other exist
 df["no credits/all paid"]=df["credit history"]=="no credits/all paid"
 df["all paid"]=df["credit history"]=="all paid"
 df["delayed previously"]=df["credit history"]=="delayed previously"
+cols = ["existing paid", "critical/other existing credit",
+        "no credits/all paid", "all paid", "delayed previously"]
+df[cols] = df[cols].astype(int)
 df=df.drop(columns="credit history")
 df["purpose radio/tv"]=df["purpose"]=="radio/tv"
 df["purpose new car"]=df["purpose"]=="new car"
