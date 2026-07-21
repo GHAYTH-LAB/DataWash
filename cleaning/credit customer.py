@@ -1,6 +1,5 @@
 import pandas as pd
 df=pd.read_csv(r"C:\Users\abidli\Desktop\cleaning datasets\datasets\raw\credit_customers-selected-columns.csv")
-print(df.shape)
 df.columns=(df.columns
             .str.lower()
             .str.strip()
@@ -12,8 +11,6 @@ df["checking status < 0"]=df["checking status < 0"].astype(int)
 df["checking status between 0 and 200"]=df["checking status between 0 and 200"].astype(int)
 df["checking status does not exist"]=df["checking status does not exist"].astype(int)
 df=df.drop(columns="checking status")
-print(df.columns)
-print(df.info())
 df["existing paid"]=df["credit history"]=="existing paid"
 df["critical/other existing credit"]=df["credit history"]=="critical/other existing credit"
 df["no credits/all paid"]=df["credit history"]=="no credits/all paid"
@@ -40,7 +37,6 @@ purpose_cols = ["purpose radio/tv","purpose new car","purpose furniture/equipmen
                 "purpose retraining"]
 df[purpose_cols] = df[purpose_cols].astype(int)
 df["credit amount"]=df["credit amount"].astype(int)
-print(df["credit amount"])
 df=df.drop(columns="credit amount")
 df["no known savings"]=df["savings status"]=="no known savings"
 df["savings <100"]=df["savings status"]=="<100"
@@ -59,8 +55,6 @@ cols = [
     "emploment between 4 and 7", "employment <1", "unemployed"
 ]
 df[cols] = df[cols].astype(int)
-print(df.columns)
-print(df.shape)
 df=df.drop(columns="employment")
 Q1=df["installment commitment"].quantile(0.25)
 Q3=df["installment commitment"].quantile(0.75)
@@ -85,5 +79,5 @@ df["other parties guarantor"] = df["other parties"] == "guarantor"
 df["other parties co applicant"] = df["other parties"] == "co applicant"
 cols = ["other parties none", "other parties guarantor", "other parties co applicant"]
 df[cols] = df[cols].astype(int)
-df = df.drop(columns="other parties")
+df = df.drop(columns=["other parties","savings status"])
 df.to_csv("cleaned dataset credit customres.csv",index=False)
