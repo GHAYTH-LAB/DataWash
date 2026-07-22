@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split,GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler,QuantileTransformer
 from sklearn.metrics import precision_score,f1_score,recall_score
 # Data preprocessing and data cleaning
 df=pd.read_csv(r"C:\Users\abidli\Desktop\cleaning datasets\datasets\raw\onlinefoods.csv")
@@ -50,6 +50,9 @@ df.to_csv("Cleaned online food dataset.csv",index=False)
 y=df["output"]
 X=df.drop(columns="output")
 X_train,X_test,y_train,y_test=train_test_split(X,y,random_state=42,test_size=0.2)
+scaler=QuantileTransformer(n_quantiles=100)
+X_train=scaler.fit_transform(X_train)
+X_test=scaler.transform(X_test)
 grid=GridSearchCV(
     estimator=RandomForestClassifier()
     ,param_grid={
