@@ -4,7 +4,8 @@ df=pd.read_csv(r"C:\Users\abidli\Desktop\cleaning datasets\datasets\raw\HR-Emplo
 df.columns=(df.columns
             .str.strip()
             .str.lower()
-            )
+
+)
 df["attrition"]=df["attrition"].apply(lambda x:True if x==1 else False)
 df["attrition"]=df["attrition"].astype(int)
 df["businesstravel"]=(df["businesstravel"]
@@ -13,6 +14,7 @@ df["businesstravel"]=(df["businesstravel"]
 df["businesstravel"]=df["businesstravel"].replace("Non_Travel","Travel_Non")
 df["businesstravel"]=df["businesstravel"].str.lower()
 df["businesstravel"]=df["businesstravel"].str.split("_",n=1).str[1]
+#Removing outliers
 Q1=df["dailyrate"].quantile(0.25)
 Q3=df["dailyrate"].quantile(0.75)
 IQR=Q3-Q1
@@ -32,6 +34,7 @@ df["jobrole"]=(df["jobrole"]
 df["maritalstatus"]=(df["maritalstatus"]
                     .str.strip()
                     .str.lower())
+#Removing outliers
 Q1=df["monthlyincome"].quantile(0.25)
 Q3=df["monthlyincome"].quantile(0.75)
 IQR=Q3-Q1
