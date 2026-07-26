@@ -10,6 +10,8 @@ df=df.fillna({
     ,"Deatils":df["Deatils"].mode()[0]
     ,"SellPrice":df["SellPrice"].median()
 })
+
+
 df=df.dropna(subset=["MRP","Discount","Sizes"])
 df.columns=(df.columns
             .str.lower()
