@@ -4,7 +4,8 @@ df.columns=df.columns.str.strip()
 df.columns=df.columns.str.lower()
 df.columns=df.columns.str.replace("_"," ")
 df["date added"]=pd.to_datetime(df["date added"])
-#checking for outliers
+
+#checking for outliers(dealing with them if needed)
 Q1=df["release year"].quantile(0.25)
 Q3=df["release year"].quantile(0.75)
 IQR=Q3-Q1
